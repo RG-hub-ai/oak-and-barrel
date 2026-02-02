@@ -38,6 +38,7 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -48,23 +49,41 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    setIsSubmitting(false);
-    setShowSuccess(true);
-
-    setTimeout(() => {
-      setShowSuccess(false);
-      onClose();
-      setFormData({
-        name: '',
-        partySize: '2',
-        date: new Date().toISOString().split('T')[0],
-        time: '19:00',
-        specialRequests: '',
+    try {
+      const response = await fetch('/api/reservations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-    }, 2000);
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to create reservation');
+      }
+
+      setShowSuccess(true);
+
+      setTimeout(() => {
+        setShowSuccess(false);
+        onClose();
+        setFormData({
+          name: '',
+          partySize: '2',
+          date: new Date().toISOString().split('T')[0],
+          time: '19:00',
+          specialRequests: '',
+        });
+      }, 2000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -118,6 +137,11 @@ export function ReservationModal({ isOpen, onClose }: ReservationModalProps) {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
+              {error && (
+                <div className="p-3 rounded-lg bg-error/10 border border-error/20 text-error text-sm">
+                  {error}
+                </div>
+              )}
               <Input
                 label="Name"
                 type="text"

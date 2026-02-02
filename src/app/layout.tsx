@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, DM_Sans } from "next/font/google";
 import "./globals.css";
+import { N8nChat } from "@/components/chat";
 
 const playfairDisplay = Playfair_Display({
   variable: "--font-display",
@@ -36,6 +37,7 @@ export default function RootLayout({
         className={`${playfairDisplay.variable} ${dmSans.variable} antialiased`}
       >
         {children}
+        <N8nChat />
       </body>
     </html>
   );
