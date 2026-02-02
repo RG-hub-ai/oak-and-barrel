@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oak & Barrel - Component Library</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       CSS RESET & BASE
+       ═══════════════════════════════════════════════════════════════ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       DESIGN TOKENS
+       ═══════════════════════════════════════════════════════════════ */
+    :root {
+      /* Colors */
+      --color-honey-gold: #E8A849;
+      --color-honey-gold-light: #F0C175;
+      --color-honey-gold-dark: #C88A2E;
+      --color-honey-gold-subtle: rgba(232, 168, 73, 0.12);
+
+      --color-terracotta: #C47D5E;
+      --color-terracotta-light: #D9A088;
+
+      --color-oak-brown: #5C4033;
+      --color-oak-brown-light: #7A5A48;
+
+      --color-cream-white: #FDF8F3;
+      --color-warm-linen: #F5EDE4;
+      --color-blush-pink: #FADCD5;
+      --color-blush-pink-light: #FDF0ED;
+      --color-stone-gray: #8B8178;
+      --color-stone-gray-light: #A9A299;
+      --color-charcoal: #2D2A26;
+
+      /* Typography */
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'DM Sans', -apple-system, sans-serif;
+
+      /* Shadows */
+      --shadow-subtle: 0 1px 2px rgba(92, 64, 51, 0.04);
+      --shadow-low: 0 2px 8px rgba(92, 64, 51, 0.06);
+      --shadow-medium: 0 4px 16px rgba(92, 64, 51, 0.08);
+      --shadow-high: 0 8px 32px rgba(92, 64, 51, 0.12);
+      --shadow-gold: 0 4px 24px rgba(232, 168, 73, 0.24);
+
+      /* Transitions */
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-cream-white);
+      color: var(--color-charcoal);
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       DOCUMENTATION LAYOUT
+       ═══════════════════════════════════════════════════════════════ */
+    .docs-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+
+    .docs-header {
+      text-align: center;
+      margin-bottom: 64px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(92, 64, 51, 0.12);
+    }
+
+    .docs-title {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--color-charcoal);
+      margin-bottom: 16px;
+    }
+
+    .docs-subtitle {
+      font-size: 18px;
+      color: var(--color-stone-gray);
+    }
+
+    .section {
+      margin-bottom: 80px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--color-charcoal);
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--color-honey-gold);
+      display: inline-block;
+    }
+
+    .component-group {
+      margin-bottom: 48px;
+    }
+
+    .component-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-stone-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+    .component-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .preview-box {
+      background: var(--color-warm-linen);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       BUTTONS
+       ═══════════════════════════════════════════════════════════════ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+      font-weight: 500;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      transition: all 150ms ease-out;
+      text-decoration: none;
+    }
+
+    .btn:focus {
+      outline: 2px solid var(--color-honey-gold);
+      outline-offset: 2px;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Primary Button */
+    .btn-primary {
+      background-color: var(--color-honey-gold);
+      color: var(--color-charcoal);
+      padding: 12px 24px;
+      font-size: 14px;
+      letter-spacing: 0.01em;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-honey-gold-light);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .btn-primary:active {
+      background-color: var(--color-honey-gold-dark);
+      transform: translateY(0) scale(0.98);
+    }
+
+    /* Secondary Button */
+    .btn-secondary {
+      background-color: transparent;
+      border: 1.5px solid var(--color-charcoal);
+      color: var(--color-charcoal);
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--color-charcoal);
+      color: var(--color-cream-white);
+    }
+
+    .btn-secondary:active {
+      background-color: var(--color-oak-brown);
+    }
+
+    /* Ghost Button */
+    .btn-ghost {
+      background-color: transparent;
+      color: var(--color-oak-brown);
+      padding: 8px 16px;
+      border-radius: 8px;
+    }
+
+    .btn-ghost:hover {
+      background-color: var(--color-honey-gold-subtle);
+    }
+
+    /* Button Sizes */
+    .btn-lg {
+      padding: 16px 32px;
+      font-size: 16px;
+      min-height: 52px;
+    }
+
+    .btn-sm {
+      padding: 8px 16px;
+      font-size: 12px;
+      min-height: 32px;
+    }
+
+    /* Icon Button */
+    .btn-icon {
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      background: var(--color-warm-linen);
+      border-radius: 50%;
+    }
+
+    .btn-icon:hover {
+      background: var(--color-blush-pink);
+      transform: scale(1.05);
+    }
+
+    .btn-icon svg {
+      width: 20px;
+      height: 20px;
+      color: var(--color-oak-brown);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       CARDS
+       ═══════════════════════════════════════════════════════════════ */
+    .card {
+      background: var(--color-cream-white);
+      border-radius: 16px;
+      box-shadow: var(--shadow-low);
+      border: 1px solid rgba(92, 64, 51, 0.06);
+      overflow: hidden;
+      transition: transform 250ms var(--ease-out-expo), box-shadow 250ms var(--ease-out-expo);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-medium);
+    }
+
+    /* Product Card */
+    .product-card {
+      width: 280px;
+    }
+
+    .product-card__image {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      background: var(--color-warm-linen);
+    }
+
+    .product-card__content {
+      padding: 20px;
+    }
+
+    .product-card__title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--color-charcoal);
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .product-card__rating {
+      display: flex;
+      justify-content: center;
+      gap: 2px;
+      margin-bottom: 12px;
+    }
+
+    .product-card__description {
+      font-size: 14px;
+      color: var(--color-stone-gray);
+      text-align: center;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .product-card__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .product-card__price {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--color-charcoal);
+    }
+
+    /* Feature Card */
+    .feature-card {
+      background: var(--color-warm-linen);
+      border-radius: 24px;
+      padding: 32px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      border: none;
+      box-shadow: none;
+    }
+
+    .feature-card__icon {
+      width: 56px;
+      height: 56px;
+      background: var(--color-honey-gold);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .feature-card__icon svg {
+      width: 28px;
+      height: 28px;
+      color: var(--color-charcoal);
+    }
+
+    .feature-card__title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .feature-card__text {
+      font-size: 15px;
+      color: var(--color-stone-gray);
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       STAR RATING
+       ═══════════════════════════════════════════════════════════════ */
+    .star-rating {
+      display: inline-flex;
+      gap: 2px;
+    }
+
+    .star {
+      width: 20px;
+      height: 20px;
+      color: var(--color-honey-gold);
+    }
+
+    .star--empty {
+      color: var(--color-stone-gray-light);
+    }
+
+    .star-rating--sm .star {
+      width: 16px;
+      height: 16px;
+    }
+
+    .star-rating--lg .star {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* Interactive Rating */
+    .star-rating--interactive .star {
+      cursor: pointer;
+      transition: transform 150ms ease-out;
+    }
+
+    .star-rating--interactive .star:hover {
+      transform: scale(1.15);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       TYPOGRAPHY
+       ═══════════════════════════════════════════════════════════════ */
+    .text-display-xl {
+      font-family: var(--font-display);
+      font-size: 64px;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .text-display {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+    }
+
+    .text-h1 {
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
+    .text-h2 {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .text-h3 {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .text-h4 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .text-body-lg {
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .text-body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .text-body-sm {
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .text-caption {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .text-overline {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-honey-gold);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       FORM INPUTS
+       ═══════════════════════════════════════════════════════════════ */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-charcoal);
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      height: 48px;
+      padding: 0 16px;
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: var(--color-charcoal);
+      background: var(--color-cream-white);
+      border: 1.5px solid rgba(92, 64, 51, 0.12);
+      border-radius: 12px;
+      transition: all 150ms ease-out;
+    }
+
+    .form-input::placeholder {
+      color: var(--color-stone-gray);
+    }
+
+    .form-input:hover {
+      border-color: rgba(92, 64, 51, 0.24);
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--color-honey-gold);
+      box-shadow: var(--shadow-gold);
+    }
+
+    .form-input--error {
+      border-color: #C45E5E;
+    }
+
+    .form-textarea {
+      min-height: 120px;
+      padding: 12px 16px;
+      resize: vertical;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       DECORATIVE ELEMENTS
+       ═══════════════════════════════════════════════════════════════ */
+    .radial-burst {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .radial-burst::before {
+      content: '';
+      position: absolute;
+      width: 120%;
+      height: 120%;
+      background: conic-gradient(
+        from 0deg,
+        var(--color-blush-pink) 0deg 30deg,
+        var(--color-cream-white) 30deg 45deg,
+        var(--color-blush-pink) 45deg 75deg,
+        var(--color-cream-white) 75deg 90deg,
+        var(--color-blush-pink) 90deg 120deg,
+        var(--color-cream-white) 120deg 135deg,
+        var(--color-blush-pink) 135deg 165deg,
+        var(--color-cream-white) 165deg 180deg,
+        var(--color-blush-pink) 180deg 210deg,
+        var(--color-cream-white) 210deg 225deg,
+        var(--color-blush-pink) 225deg 255deg,
+        var(--color-cream-white) 255deg 270deg,
+        var(--color-blush-pink) 270deg 300deg,
+        var(--color-cream-white) 300deg 315deg,
+        var(--color-blush-pink) 315deg 345deg,
+        var(--color-cream-white) 345deg 360deg
+      );
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .radial-burst__content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .dish-image {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--color-warm-linen);
+      box-shadow: var(--shadow-medium);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════════════════════════════════ */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 80px;
+      background: var(--color-cream-white);
+      border-bottom: 1px solid rgba(92, 64, 51, 0.06);
+    }
+
+    .navbar__logo {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--color-charcoal);
+      text-decoration: none;
+    }
+
+    .navbar__links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .navbar__link {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--color-charcoal);
+      text-decoration: none;
+      transition: color 150ms ease-out;
+    }
+
+    .navbar__link:hover {
+      color: var(--color-honey-gold-dark);
+    }
+
+    .navbar__link--active {
+      color: var(--color-honey-gold);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       TOAST NOTIFICATION
+       ═══════════════════════════════════════════════════════════════ */
+    .toast {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 24px;
+      background: var(--color-charcoal);
+      color: var(--color-cream-white);
+      border-radius: 12px;
+      box-shadow: var(--shadow-high);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .toast__icon {
+      width: 20px;
+      height: 20px;
+      color: #6B9B5A;
+    }
+
+    .toast--success {
+      border-left: 4px solid #6B9B5A;
+    }
+
+    .toast--error {
+      border-left: 4px solid #C45E5E;
+    }
+
+    .toast--error .toast__icon {
+      color: #C45E5E;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       COLOR SWATCHES
+       ═══════════════════════════════════════════════════════════════ */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 16px;
+    }
+
+    .color-swatch {
+      text-align: center;
+    }
+
+    .color-swatch__box {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .color-swatch__name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-charcoal);
+    }
+
+    .color-swatch__value {
+      font-size: 11px;
+      color: var(--color-stone-gray);
+      font-family: monospace;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       ANIMATIONS
+       ═══════════════════════════════════════════════════════════════ */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .animate-slide-up {
+      animation: slideUp 0.4s var(--ease-out-expo);
+    }
+
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+  <div class="docs-container">
+    <!-- Header -->
+    <header class="docs-header">
+      <h1 class="docs-title">Oak & Barrel</h1>
+      <p class="docs-subtitle">Design System Component Library</p>
+    </header>
+
+    <!-- Colors Section -->
+    <section class="section">
+      <h2 class="section-title">Color Palette</h2>
+
+      <div class="component-group">
+        <p class="component-label">Primary Colors</p>
+        <div class="color-grid">
+          <div class="color-swatch">
+            <div class="color-swatch__box" style="background: #E8A849;"></div>
+            <p class="color-swatch__name">Honey Gold</p>
+            <p class="color-swatch__value">#E8A849</p>
+          </div>
+          <div class="color-swatch">
+            <div class="color-swatch__box" style="background: #C47D5E;"></div>
+            <p class="color-swatch__name">Terracotta</p>
+            <p class="color-swatch__value">#C47D5E</p>
+          </div>
+          <div class="color-swatch">
+            <div class="color-swatch__box" style="background: #5C4033;"></div>
+            <p class="color-swatch__name">Oak Brown</p>
+            <p class="color-swatch__value">#5C4033</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="component-group">
+        <p class="component-label">Neutral Colors</p>
+        <div class="color-grid">
+          <div class="color-swatch">
+            <div class="color-swatch__box" style="background: #FDF8F3; border: 1px solid #eee;"></div>
+            <p class="color-swatch__name">Cream White</p>
+            <p class="color-swatch__value">#FDF8F3</p>
+          </div>
+          <div class="color-swatch">
+            <div class="color-swatch__box" style="background: #F5EDE4;"></div>
+            <p class="color-swatch__name">Warm Linen</p>
+            <p class="color-swatch__value">#F5EDE4</p>
+          </div>
+          <div class="color-swatch">
+            <div class="color-swatch__box" style="background: #FADCD5;"></div>
+            <p class="color-swatch__name">Blush Pink</p>
+            <p class="color-swatch__value">#FADCD5</p>
+          </div>
+          <div class="color-swatch">
+            <div class="color-swatch__box" style="background: #8B8178;"></div>
+            <p class="color-swatch__name">Stone Gray</p>
+            <p class="color-swatch__value">#8B8178</p>
+          </div>
+          <div class="color-swatch">
+            <div class="color-swatch__box" style="background: #2D2A26;"></div>
+            <p class="color-swatch__name">Charcoal</p>
+            <p class="color-swatch__value">#2D2A26</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Typography Section -->
+    <section class="section">
+      <h2 class="section-title">Typography</h2>
+
+      <div class="preview-box">
+        <p class="text-overline" style="margin-bottom: 16px;">Overline Text</p>
+        <p class="text-display-xl" style="margin-bottom: 24px;">Display XL</p>
+        <p class="text-display" style="margin-bottom: 24px;">Display Heading</p>
+        <p class="text-h1" style="margin-bottom: 20px;">Heading 1</p>
+        <p class="text-h2" style="margin-bottom: 16px;">Heading 2</p>
+        <p class="text-h3" style="margin-bottom: 12px;">Heading 3</p>
+        <p class="text-h4" style="margin-bottom: 12px;">Heading 4</p>
+        <p class="text-body-lg" style="margin-bottom: 8px; color: var(--color-stone-gray);">Body Large - The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-body" style="margin-bottom: 8px; color: var(--color-stone-gray);">Body Regular - The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-body-sm" style="margin-bottom: 8px; color: var(--color-stone-gray);">Body Small - The quick brown fox jumps over the lazy dog.</p>
+        <p class="text-caption" style="color: var(--color-stone-gray);">Caption Text</p>
+      </div>
+    </section>
+
+    <!-- Buttons Section -->
+    <section class="section">
+      <h2 class="section-title">Buttons</h2>
+
+      <div class="component-group">
+        <p class="component-label">Primary Buttons</p>
+        <div class="preview-box">
+          <div class="component-row">
+            <button class="btn btn-primary btn-lg">Large Button</button>
+            <button class="btn btn-primary">Make Reservation</button>
+            <button class="btn btn-primary btn-sm">Small Button</button>
+            <button class="btn btn-primary" disabled>Disabled</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="component-group">
+        <p class="component-label">Secondary Buttons</p>
+        <div class="preview-box">
+          <div class="component-row">
+            <button class="btn btn-secondary btn-lg">Large Button</button>
+            <button class="btn btn-secondary">Add To Cart</button>
+            <button class="btn btn-secondary btn-sm">Small Button</button>
+            <button class="btn btn-secondary" disabled>Disabled</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="component-group">
+        <p class="component-label">Ghost & Icon Buttons</p>
+        <div class="preview-box">
+          <div class="component-row">
+            <button class="btn btn-ghost">Learn More</button>
+            <button class="btn btn-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </button>
+            <button class="btn btn-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Star Rating Section -->
+    <section class="section">
+      <h2 class="section-title">Star Rating</h2>
+
+      <div class="preview-box">
+        <div class="component-group">
+          <p class="component-label">Sizes</p>
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div class="star-rating star-rating--sm">
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star star--empty" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <div class="star-rating">
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <div class="star-rating star-rating--lg">
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star star--empty" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="star star--empty" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cards Section -->
+    <section class="section">
+      <h2 class="section-title">Cards</h2>
+
+      <div class="component-group">
+        <p class="component-label">Product Card</p>
+        <div class="preview-box" style="display: flex; gap: 24px; flex-wrap: wrap;">
+          <div class="card product-card">
+            <div class="product-card__image" style="background: linear-gradient(135deg, #F5EDE4 0%, #FADCD5 100%); display: flex; align-items: center; justify-content: center; color: var(--color-stone-gray);">
+              [Food Image]
+            </div>
+            <div class="product-card__content">
+              <h3 class="product-card__title">Pasta</h3>
+              <div class="product-card__rating">
+                <svg class="star" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color: var(--color-honey-gold);"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color: var(--color-honey-gold);"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color: var(--color-honey-gold);"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color: var(--color-honey-gold);"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color: var(--color-honey-gold);"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <p class="product-card__description">Pasta is a type of food typically made from an unleavened dough.</p>
+              <div class="product-card__footer">
+                <span class="product-card__price">$35.00</span>
+                <button class="btn btn-secondary btn-sm">Add To Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card product-card">
+            <div class="product-card__image" style="background: linear-gradient(135deg, #F5EDE4 0%, #FADCD5 100%); display: flex; align-items: center; justify-content: center; color: var(--color-stone-gray);">
+              [Food Image]
+            </div>
+            <div class="product-card__content">
+              <h3 class="product-card__title">Fish Curry</h3>
+              <div class="product-card__rating">
+                <svg class="star" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color: var(--color-honey-gold);"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color: var(--color-honey-gold);"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color: var(--color-honey-gold);"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color: var(--color-honey-gold);"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg class="star" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="color: var(--color-stone-gray-light);"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <p class="product-card__description">Fresh fish curry with aromatic spices and coconut milk.</p>
+              <div class="product-card__footer">
+                <span class="product-card__price">$42.00</span>
+                <button class="btn btn-secondary btn-sm">Add To Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="component-group">
+        <p class="component-label">Feature Card</p>
+        <div class="preview-box">
+          <div class="feature-card" style="max-width: 480px;">
+            <div class="feature-card__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="feature-card__title">We Are More Than Multiple Service</h3>
+              <p class="feature-card__text">Experience exceptional dining with our diverse menu offerings and impeccable service that goes beyond expectations.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Form Inputs Section -->
+    <section class="section">
+      <h2 class="section-title">Form Inputs</h2>
+
+      <div class="preview-box" style="max-width: 400px;">
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input type="text" class="form-input" placeholder="Enter your name">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" placeholder="you@example.com">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Date & Time</label>
+          <input type="text" class="form-input" placeholder="Select date and time">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Special Requests</label>
+          <textarea class="form-input form-textarea" placeholder="Any dietary requirements or special requests?"></textarea>
+        </div>
+
+        <button class="btn btn-primary" style="width: 100%;">Make Reservation</button>
+      </div>
+    </section>
+
+    <!-- Navigation Section -->
+    <section class="section">
+      <h2 class="section-title">Navigation</h2>
+
+      <div class="preview-box" style="padding: 0; overflow: hidden; border-radius: 16px;">
+        <nav class="navbar">
+          <a href="#" class="navbar__logo">Oak & Barrel</a>
+          <ul class="navbar__links">
+            <li><a href="#" class="navbar__link navbar__link--active">Home</a></li>
+            <li><a href="#" class="navbar__link">About</a></li>
+            <li><a href="#" class="navbar__link">Menu</a></li>
+            <li><a href="#" class="navbar__link">Contact</a></li>
+          </ul>
+          <button class="btn btn-primary">Make Reservation</button>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Decorative Elements Section -->
+    <section class="section">
+      <h2 class="section-title">Decorative Elements</h2>
+
+      <div class="component-group">
+        <p class="component-label">Radial Burst Background</p>
+        <div class="preview-box" style="display: flex; justify-content: center; padding: 64px;">
+          <div class="radial-burst" style="width: 280px; height: 280px;">
+            <div class="radial-burst__content">
+              <div class="dish-image" style="width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; background: var(--color-warm-linen); color: var(--color-stone-gray);">
+                [Dish Image]
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Toast Notifications Section -->
+    <section class="section">
+      <h2 class="section-title">Feedback</h2>
+
+      <div class="component-group">
+        <p class="component-label">Toast Notifications</p>
+        <div class="preview-box">
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div class="toast toast--success">
+              <svg class="toast__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              Item added to cart
+            </div>
+            <div class="toast toast--error">
+              <svg class="toast__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              Reservation failed. Please try again.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

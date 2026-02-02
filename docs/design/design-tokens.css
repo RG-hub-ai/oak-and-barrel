@@ -1,0 +1,292 @@
+/**
+ * Oak & Barrel Design System
+ * Design Tokens - CSS Custom Properties
+ *
+ * Import this file at the root of your application
+ * to access all design tokens throughout your stylesheets.
+ */
+
+:root {
+  /* ═══════════════════════════════════════════════════════════════
+     COLOR TOKENS
+     ═══════════════════════════════════════════════════════════════ */
+
+  /* Primary Palette */
+  --color-honey-gold: #E8A849;
+  --color-honey-gold-light: #F0C175;
+  --color-honey-gold-dark: #C88A2E;
+  --color-honey-gold-subtle: rgba(232, 168, 73, 0.12);
+
+  --color-terracotta: #C47D5E;
+  --color-terracotta-light: #D9A088;
+  --color-terracotta-dark: #A55F42;
+  --color-terracotta-subtle: rgba(196, 125, 94, 0.12);
+
+  --color-oak-brown: #5C4033;
+  --color-oak-brown-light: #7A5A48;
+  --color-oak-brown-dark: #3D2A22;
+
+  /* Neutral Palette */
+  --color-cream-white: #FDF8F3;
+  --color-warm-linen: #F5EDE4;
+  --color-blush-pink: #FADCD5;
+  --color-blush-pink-light: #FDF0ED;
+  --color-stone-gray: #8B8178;
+  --color-stone-gray-light: #A9A299;
+  --color-charcoal: #2D2A26;
+  --color-charcoal-light: #4A4640;
+
+  /* Semantic Colors */
+  --color-success: #6B9B5A;
+  --color-success-light: #8BB87C;
+  --color-success-subtle: rgba(107, 155, 90, 0.12);
+
+  --color-warning: #E8A849;
+  --color-warning-light: #F0C175;
+  --color-warning-subtle: rgba(232, 168, 73, 0.12);
+
+  --color-error: #C45E5E;
+  --color-error-light: #D88080;
+  --color-error-subtle: rgba(196, 94, 94, 0.12);
+
+  --color-info: #5E8BC4;
+  --color-info-light: #82A8D6;
+  --color-info-subtle: rgba(94, 139, 196, 0.12);
+
+  /* Background Colors */
+  --bg-primary: var(--color-cream-white);
+  --bg-secondary: var(--color-warm-linen);
+  --bg-tertiary: var(--color-blush-pink-light);
+  --bg-accent: var(--color-blush-pink);
+  --bg-inverse: var(--color-charcoal);
+
+  /* Text Colors */
+  --text-primary: var(--color-charcoal);
+  --text-secondary: var(--color-stone-gray);
+  --text-tertiary: var(--color-stone-gray-light);
+  --text-inverse: var(--color-cream-white);
+  --text-accent: var(--color-oak-brown);
+  --text-link: var(--color-oak-brown);
+  --text-link-hover: var(--color-honey-gold-dark);
+
+  /* Border Colors */
+  --border-default: rgba(92, 64, 51, 0.12);
+  --border-subtle: rgba(92, 64, 51, 0.06);
+  --border-strong: rgba(92, 64, 51, 0.24);
+  --border-focus: var(--color-honey-gold);
+
+  /* ═══════════════════════════════════════════════════════════════
+     TYPOGRAPHY TOKENS
+     ═══════════════════════════════════════════════════════════════ */
+
+  /* Font Families */
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+
+  /* Font Sizes */
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.875rem;     /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg: 1.125rem;     /* 18px */
+  --text-xl: 1.25rem;      /* 20px */
+  --text-2xl: 1.5rem;      /* 24px */
+  --text-3xl: 2rem;        /* 32px */
+  --text-4xl: 2.5rem;      /* 40px */
+  --text-5xl: 3rem;        /* 48px */
+  --text-6xl: 4rem;        /* 64px */
+
+  /* Font Weights */
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  /* Line Heights */
+  --leading-none: 1;
+  --leading-tight: 1.15;
+  --leading-snug: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.6;
+  --leading-loose: 1.75;
+
+  /* Letter Spacing */
+  --tracking-tighter: -0.02em;
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.01em;
+  --tracking-wider: 0.02em;
+  --tracking-widest: 0.1em;
+
+  /* ═══════════════════════════════════════════════════════════════
+     SPACING TOKENS
+     ═══════════════════════════════════════════════════════════════ */
+
+  --space-0: 0;
+  --space-px: 1px;
+  --space-0-5: 0.125rem;   /* 2px */
+  --space-1: 0.25rem;      /* 4px */
+  --space-2: 0.5rem;       /* 8px */
+  --space-3: 0.75rem;      /* 12px */
+  --space-4: 1rem;         /* 16px */
+  --space-5: 1.5rem;       /* 24px */
+  --space-6: 2rem;         /* 32px */
+  --space-7: 3rem;         /* 48px */
+  --space-8: 4rem;         /* 64px */
+  --space-9: 6rem;         /* 96px */
+  --space-10: 8rem;        /* 128px */
+
+  /* ═══════════════════════════════════════════════════════════════
+     SIZING TOKENS
+     ═══════════════════════════════════════════════════════════════ */
+
+  /* Container Widths */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1536px;
+  --container-content: 1120px;
+
+  /* Component Sizes */
+  --size-icon-sm: 1rem;      /* 16px */
+  --size-icon-md: 1.25rem;   /* 20px */
+  --size-icon-lg: 1.5rem;    /* 24px */
+  --size-icon-xl: 2rem;      /* 32px */
+
+  --size-avatar-sm: 2rem;    /* 32px */
+  --size-avatar-md: 2.5rem;  /* 40px */
+  --size-avatar-lg: 3rem;    /* 48px */
+  --size-avatar-xl: 4rem;    /* 64px */
+
+  --size-button-sm: 2rem;    /* 32px height */
+  --size-button-md: 2.5rem;  /* 40px height */
+  --size-button-lg: 3rem;    /* 48px height */
+
+  /* ═══════════════════════════════════════════════════════════════
+     BORDER RADIUS TOKENS
+     ═══════════════════════════════════════════════════════════════ */
+
+  --radius-none: 0;
+  --radius-sm: 0.25rem;      /* 4px */
+  --radius-md: 0.5rem;       /* 8px */
+  --radius-lg: 0.75rem;      /* 12px */
+  --radius-xl: 1rem;         /* 16px */
+  --radius-2xl: 1.5rem;      /* 24px */
+  --radius-3xl: 2rem;        /* 32px */
+  --radius-full: 9999px;
+
+  /* ═══════════════════════════════════════════════════════════════
+     SHADOW TOKENS
+     ═══════════════════════════════════════════════════════════════ */
+
+  --shadow-none: none;
+  --shadow-subtle: 0 1px 2px rgba(92, 64, 51, 0.04);
+  --shadow-low: 0 2px 8px rgba(92, 64, 51, 0.06);
+  --shadow-medium: 0 4px 16px rgba(92, 64, 51, 0.08);
+  --shadow-high: 0 8px 32px rgba(92, 64, 51, 0.12);
+  --shadow-intense: 0 16px 48px rgba(92, 64, 51, 0.16);
+
+  /* Colored shadows for emphasis */
+  --shadow-gold: 0 4px 24px rgba(232, 168, 73, 0.24);
+  --shadow-gold-intense: 0 8px 32px rgba(232, 168, 73, 0.32);
+
+  /* ═══════════════════════════════════════════════════════════════
+     ANIMATION TOKENS
+     ═══════════════════════════════════════════════════════════════ */
+
+  /* Durations */
+  --duration-instant: 50ms;
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --duration-slower: 600ms;
+  --duration-slowest: 1000ms;
+
+  /* Easing Functions */
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quad: cubic-bezier(0.45, 0, 0.55, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Common Transitions */
+  --transition-fast: var(--duration-fast) var(--ease-out);
+  --transition-normal: var(--duration-normal) var(--ease-out);
+  --transition-slow: var(--duration-slow) var(--ease-out-expo);
+
+  /* ═══════════════════════════════════════════════════════════════
+     Z-INDEX TOKENS
+     ═══════════════════════════════════════════════════════════════ */
+
+  --z-below: -1;
+  --z-base: 0;
+  --z-elevated: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-overlay: 400;
+  --z-modal: 500;
+  --z-popover: 600;
+  --z-tooltip: 700;
+  --z-toast: 800;
+  --z-max: 9999;
+
+  /* ═══════════════════════════════════════════════════════════════
+     BREAKPOINTS (for reference - use @media queries)
+     ═══════════════════════════════════════════════════════════════ */
+
+  /*
+   * --bp-sm: 640px
+   * --bp-md: 768px
+   * --bp-lg: 1024px
+   * --bp-xl: 1280px
+   * --bp-2xl: 1536px
+   */
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DARK MODE TOKENS (optional future support)
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (prefers-color-scheme: dark) {
+  :root.dark-mode {
+    --bg-primary: #1A1816;
+    --bg-secondary: #242120;
+    --bg-tertiary: #2E2A28;
+    --bg-accent: #3D3532;
+
+    --text-primary: var(--color-cream-white);
+    --text-secondary: var(--color-stone-gray-light);
+    --text-tertiary: var(--color-stone-gray);
+
+    --border-default: rgba(253, 248, 243, 0.12);
+    --border-subtle: rgba(253, 248, 243, 0.06);
+    --border-strong: rgba(253, 248, 243, 0.24);
+
+    --shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.2);
+    --shadow-low: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-high: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --shadow-intense: 0 16px 48px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-instant: 0ms;
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+    --duration-slowest: 0ms;
+  }
+}

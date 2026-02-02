@@ -1,21 +1,22 @@
 'use client';
 
 import { Navigation, Footer } from '@/components/layout';
-import { HeroSection, PopularDishes, EventsSection, ReservationCTA } from '@/components/home';
+import { AboutHero, FounderStory, Timeline, Philosophy, Gallery } from '@/components/about';
 import { ReservationModal } from '@/components/modal';
 import { useModal } from '@/hooks/useModal';
 
-export default function Home() {
+export default function AboutPage() {
   const { isOpen, open, close } = useModal();
 
   return (
     <>
       <Navigation onReservationClick={open} />
       <main>
-        <HeroSection onReservationClick={open} />
-        <PopularDishes />
-        <EventsSection />
-        <ReservationCTA onReservationClick={open} />
+        <AboutHero />
+        <FounderStory />
+        <Timeline />
+        <Philosophy />
+        <Gallery />
       </main>
       <Footer />
       <ReservationModal isOpen={isOpen} onClose={close} />
